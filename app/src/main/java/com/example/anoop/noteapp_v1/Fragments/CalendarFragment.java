@@ -1,4 +1,4 @@
-package com.example.anoop.noteapp_v1;
+package com.example.anoop.noteapp_v1.Fragments;
 
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
@@ -6,6 +6,8 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.example.anoop.noteapp_v1.R;
 
 /**
  * Created by anoop on 10/10/2016.

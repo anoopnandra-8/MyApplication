@@ -50,7 +50,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="5dp"
-            class="com.example.anoop.noteapp_v1.NotesActivity$LineEditText"
+            class="com.example.anoop.noteapp_v1.activities.NotesActivity$LineEditText"
             android:background="@android:color/transparent"
             android:capitalize="sentences"
             android:fadingEdge="vertical"
@@ -116,7 +116,7 @@
                     android:layout_marginTop="20dp"
                     android:scrollbars="vertical"
                     android:textSize="22sp"
-                    class="com.example.anoop.noteapp_v1.NotesActivity$LineEditText"/>
+                    class="com.example.anoop.noteapp_v1.activities.NotesActivity$LineEditText"/>
 
     </RelativeLayout>
 

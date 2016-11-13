@@ -1,4 +1,4 @@
-package com.example.anoop.noteapp_v1;
+package com.example.anoop.noteapp_v1.activities;
 
 import android.content.Context;
 import android.content.Intent;
@@ -8,21 +8,18 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.view.menu.MenuBuilder;
-import android.support.v7.view.menu.MenuPopupHelper;
-import android.support.v7.widget.PopupMenu;
-import android.support.v7.widget.Toolbar;
 import android.util.AttributeSet;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.anoop.noteapp_v1.R;
+import com.example.anoop.noteapp_v1.activities.MainActivity;
 
 import java.lang.reflect.Method;
 import java.text.SimpleDateFormat;

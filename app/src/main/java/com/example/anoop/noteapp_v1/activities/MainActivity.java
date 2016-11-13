@@ -1,4 +1,4 @@
-package com.example.anoop.noteapp_v1;
+package com.example.anoop.noteapp_v1.activities;
 
 import android.app.SearchManager;
 import android.content.Context;
@@ -14,18 +14,17 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.ImageButton;
-import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.anoop.noteapp_v1.Fragments.CalendarFragment;
+import com.example.anoop.noteapp_v1.Fragments.MainFragment;
+import com.example.anoop.noteapp_v1.R;
 import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import butterknife.Optional;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -78,8 +77,6 @@ public class MainActivity extends AppCompatActivity
         }
 
         initialiseFragment();
-
-        Toast.makeText(MainActivity.this, "this works", Toast.LENGTH_SHORT).show();
 
     }
 

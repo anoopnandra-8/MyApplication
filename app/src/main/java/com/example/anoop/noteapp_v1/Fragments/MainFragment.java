@@ -1,4 +1,4 @@
-package com.example.anoop.noteapp_v1;
+package com.example.anoop.noteapp_v1.Fragments;
 
 import android.content.Intent;
 import android.support.v4.app.Fragment;
@@ -9,7 +9,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import com.example.anoop.noteapp_v1.activities.NotesActivity;
+import com.example.anoop.noteapp_v1.R;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
