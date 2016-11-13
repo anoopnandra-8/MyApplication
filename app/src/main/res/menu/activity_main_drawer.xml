@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/home_nav_img"
+            android:icon="@drawable/home_nav"
+            android:title="Home" />
+        <item
+            android:id="@+id/calendar_nav_img"
+            android:icon="@drawable/calendar_nav"
+            android:title="Calendar" />
+        <item
+            android:id="@+id/task_nav_img"
+            android:icon="@drawable/task_nav"
+            android:title="Tasks" />
+        <item
+            android:id="@+id/search_nav_img"
+            android:icon="@drawable/search_nav"
+            android:title="Search" />
+        <item
+            android:id="@+id/trash_nav_img"
+            android:icon="@drawable/trash_nav"
+            android:title="Trash" />
+        <item
+            android:id="@+id/setting_nav_img"
+            android:icon="@drawable/setting_nav"
+            android:title="Setting" />
+    </group>
+
+    <item android:title="Developed by">
+        <menu>
+            <item
+
+                android:title="Anoop Nandra"  />
+        </menu>
+    </item>
+
+</menu>

@@ -1,0 +1,52 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:appcompat="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto" >
+
+
+    <item
+        android:id="@+id/note_save"
+        android:title="Save"
+        android:orderInCategory="0"
+        android:icon="@drawable/save_note"
+        app:showAsAction="always"/>
+
+    <item
+        android:id="@+id/note_lock"
+        android:title="@string/action_lock_notes"
+        android:orderInCategory="100"
+        android:icon="@drawable/lock_notes"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/note_send"
+        android:title="@string/action_send_notes"
+        android:orderInCategory="200"
+        android:icon="@drawable/send_notes"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/note_reminder"
+        android:title="@string/action_reminder_notes"
+        android:orderInCategory="300"
+        android:icon="@drawable/reminder_note"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/note_delete"
+        android:title="@string/action_delete_notes"
+        android:orderInCategory="400"
+        android:icon="@drawable/delete_note"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/note_colour"
+        android:title="@string/action_colour_notes"
+        android:orderInCategory="500"
+        android:icon="@drawable/colour_note"
+        app:showAsAction="never"/>
+
+
+
+
+
+</menu>

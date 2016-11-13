@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context="com.example.anoop.noteapp_v1.MainActivity">
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:popupTheme="@style/AppTheme.PopupOverlay" />
+
+    </android.support.design.widget.AppBarLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/fragment_container">
+    </FrameLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        xmlns:fab="http://schemas.android.com/apk/res-auto">
+
+       <com.github.clans.fab.FloatingActionMenu
+            android:id="@+id/android_floating_action_menu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="11dp"
+            android:layout_marginLeft="11dp"
+            android:layout_marginRight="11dp"
+            fab:menu_animationDelayPerItem="55"
+            fab:menu_backgroundColor="@android:color/transparent"
+            fab:menu_buttonSpacing="0dp"
+            fab:menu_colorNormal="#003D97"
+            fab:menu_colorPressed="#4691FF"
+            fab:menu_fab_size="normal"
+            fab:menu_icon="@drawable/fab_add"
+            fab:menu_labels_colorNormal="#333"
+            fab:menu_labels_colorPressed="#444"
+            fab:menu_labels_colorRipple="#66EFECEC"
+            fab:menu_labels_ellipsize="none"
+            fab:menu_fab_hide_animation="@anim/fab_slide_in_from_right"
+            fab:menu_labels_margin="0dp"
+            fab:menu_labels_maxLines="-1"
+            fab:menu_labels_padding="8dp"
+            fab:menu_labels_position="left"
+            fab:menu_labels_showAnimation="@anim/fab_slide_in_from_right"
+            fab:menu_showShadow="true"
+            fab:menu_labels_singleLine="true"
+            fab:menu_labels_textColor="#FFFFFF"
+            fab:menu_labels_textSize="15sp"
+            fab:menu_openDirection="up"
+            fab:menu_shadowRadius="4dp"
+            fab:menu_shadowXOffset="1dp"
+            fab:menu_shadowYOffset="4dp"
+            fab:menu_labels_showShadow="true"
+            >
+
+            <com.github.clans.fab.FloatingActionButton
+                android:id="@+id/floating_action_btn_notes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/notes_fab"
+                fab:fab_label="Add Note"
+                fab:fab_size="mini"
+                fab:fab_colorNormal="#003D97"
+                fab:fab_colorPressed="#4691FF"/>
+
+           <!-- android:onClick="notesFloatingButton"-->
+
+            <com.github.clans.fab.FloatingActionButton
+                android:id="@+id/floating_action_btn_task"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/task_fab"
+
+                fab:fab_label="Add Task"
+                fab:fab_size="mini"
+                fab:fab_colorNormal="#003D97"
+                fab:fab_colorPressed="#4691FF"/>
+
+           <!-- android:onClick="taskFloatingButton"-->
+
+        </com.github.clans.fab.FloatingActionMenu>
+
+    </RelativeLayout>
+
+
+
+
+
+</android.support.design.widget.CoordinatorLayout>

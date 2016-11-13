@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">NoteApp_V1</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="menu_search">Search</string>
+    <string name="search_hint">Type and Search</string>
+    <string name="application_name">Note Application</string>
+
+    <string name="action_send_notes">Send</string>
+    <string name="action_lock_notes">Lock</string>
+    <string name="action_reminder_notes">Reminder</string>
+    <string name="action_delete_notes">Delete</string>
+    <string name="action_colour_notes">Colour</string>
+
+</resources>
