@@ -79,6 +79,8 @@ public class MainActivity extends AppCompatActivity
 
         initialiseFragment();
 
+        Toast.makeText(MainActivity.this, "this works", Toast.LENGTH_SHORT).show();
+
     }
 
     public void initialiseFragment(){
