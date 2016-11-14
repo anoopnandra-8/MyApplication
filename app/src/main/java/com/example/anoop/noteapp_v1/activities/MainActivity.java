@@ -3,6 +3,7 @@ package com.example.anoop.noteapp_v1.activities;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -11,9 +12,11 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.anoop.noteapp_v1.Fragments.CalendarFragment;
@@ -31,9 +34,7 @@ public class MainActivity extends AppCompatActivity
 
     NavigationView navigationView = null;
     Toolbar toolbar = null;
-    FloatingActionMenu floatingMenu;
-    FloatingActionButton floatingButtonNotes, floatingButtonTask;
-
+    SharedPreferences sharedPreferences;
 
     @BindView(R.id.android_floating_action_menu)
     com.github.clans.fab.FloatingActionMenu FloatingAction_menu;
@@ -43,6 +44,15 @@ public class MainActivity extends AppCompatActivity
 
     @BindView(R.id.floating_action_btn_task)
     com.github.clans.fab.FloatingActionButton FloatingActionTask_btn;
+
+    /*@BindView(R.id.addName_pref)
+    EditText getNamePref;
+
+    @BindView(R.id.addEmail_pref)
+    EditText getEmailPref;
+
+    @BindView(R.id.addPassword_pref)
+    EditText getPasswordPref;*/
 
 
     @Override
@@ -76,17 +86,22 @@ public class MainActivity extends AppCompatActivity
             Toast.makeText(MainActivity.this, query, Toast.LENGTH_SHORT).show();
         }
 
+        createSession();
         initialiseFragment();
 
     }
 
-    public void initialiseFragment(){
+
+    private void createSession(){
+
+    }
+
+    private void initialiseFragment(){
         MainFragment fragment = new MainFragment();
         android.support.v4.app.FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.fragment_container, fragment);
         fragmentTransaction.commit();
     }
-
 
    @OnClick(R.id.floating_action_btn_notes)
    public void notesFloatingButton(){

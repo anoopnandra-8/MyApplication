@@ -15,4 +15,6 @@
     <string name="action_delete_notes">Delete</string>
     <string name="action_colour_notes">Colour</string>
 
+    <string name="progress_dialogue_information">Hey! I see you\'re new here. Please add your information so you can utilise the whole application</string>
+
 </resources>
