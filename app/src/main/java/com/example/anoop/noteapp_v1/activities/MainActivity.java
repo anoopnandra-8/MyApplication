@@ -41,15 +41,6 @@ public class MainActivity extends AppCompatActivity
     @BindView(R.id.floating_action_btn_task)
     com.github.clans.fab.FloatingActionButton FloatingActionTask_btn;
 
-    /*@BindView(R.id.addName_pref)
-    EditText getNamePref;
-
-    @BindView(R.id.addEmail_pref)
-    EditText getEmailPref;
-
-    @BindView(R.id.addPassword_pref)
-    EditText getPasswordPref;*/
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,7 +77,6 @@ public class MainActivity extends AppCompatActivity
         initialiseFragment();
 
     }
-
 
     private void createSession(){
 
