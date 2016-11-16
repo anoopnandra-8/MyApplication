@@ -1,4 +1,4 @@
-package com.example.anoop.noteapp_v1.Fragments;
+package com.example.anoop.noteapp_v1.fragments;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -12,7 +12,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.anoop.noteapp_v1.activities.NotesActivity;
 import com.example.anoop.noteapp_v1.R;

@@ -1,4 +1,4 @@
-package com.example.anoop.noteapp_v1.Fragments;
+package com.example.anoop.noteapp_v1.fragments;
 
 import android.support.v4.app.Fragment;
 import android.os.Bundle;

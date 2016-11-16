@@ -12,18 +12,14 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.anoop.noteapp_v1.Fragments.CalendarFragment;
-import com.example.anoop.noteapp_v1.Fragments.MainFragment;
+import com.example.anoop.noteapp_v1.fragments.CalendarFragment;
+import com.example.anoop.noteapp_v1.fragments.MainFragment;
 import com.example.anoop.noteapp_v1.R;
-import com.github.clans.fab.FloatingActionButton;
-import com.github.clans.fab.FloatingActionMenu;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
