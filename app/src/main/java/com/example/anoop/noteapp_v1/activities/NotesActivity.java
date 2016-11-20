@@ -60,7 +60,6 @@ public class NotesActivity extends AppCompatActivity{
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-
         int id = item.getItemId();
 
         switch (id){
@@ -90,7 +89,6 @@ public class NotesActivity extends AppCompatActivity{
 
             default: Toast.makeText(this, "did not work", Toast.LENGTH_SHORT).show();
         }
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -112,7 +110,6 @@ public class NotesActivity extends AppCompatActivity{
     }
 
     public static class LineEditText extends EditText{
-
         public LineEditText(Context context, AttributeSet attrs) {
             super(context, attrs);
             mRect = new Rect();

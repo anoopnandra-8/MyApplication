@@ -14,7 +14,7 @@ public class Note extends RealmObject {
     private String note;
     private String time;
     private String date;
-    private long emailID;
+    private String emailID;
     private Boolean archive;
     private  Boolean delete;
     private String colour;
@@ -62,11 +62,11 @@ public class Note extends RealmObject {
         return date;
     }
 
-    public void setEmailID(long emailID){
+    public void setEmailID(String emailID){
         this.emailID=emailID;
     }
 
-    public long getEmailID(){
+    public String getEmailID(){
         return emailID;
     }
 

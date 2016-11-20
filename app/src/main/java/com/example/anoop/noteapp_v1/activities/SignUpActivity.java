@@ -62,7 +62,6 @@ public class SignUpActivity extends AppCompatActivity {
                 RealmUserController.with(SignUpActivity.this).refresh();
             }
         };
-
     }
 
     @OnClick(R.id.signup_btn)
