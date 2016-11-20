@@ -12,25 +12,39 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.anoop.noteapp_v1.fragments.CalendarFragment;
 import com.example.anoop.noteapp_v1.fragments.MainFragment;
 import com.example.anoop.noteapp_v1.R;
+import com.example.anoop.noteapp_v1.models.Users;
+import com.example.anoop.noteapp_v1.realm.RealmUserController;
+import com.example.anoop.noteapp_v1.session.SessionManager;
+
+
+import java.util.HashMap;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.realm.Realm;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    NavigationView navigationView = null;
+    /*NavigationView navigationView = null;
     Toolbar toolbar = null;
-    SharedPreferences sharedPreferences;
+    SharedPreferences sharedPreferences;*/
+
+    private String NAME;
+    private SessionManager sessionManager;
+    private Realm realm;
 
     @BindView(R.id.android_floating_action_menu)
     com.github.clans.fab.FloatingActionMenu FloatingAction_menu;
@@ -41,6 +55,8 @@ public class MainActivity extends AppCompatActivity
     @BindView(R.id.floating_action_btn_task)
     com.github.clans.fab.FloatingActionButton FloatingActionTask_btn;
 
+    @BindView(R.id.nav_view)
+    NavigationView navigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +64,8 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         setTitle(R.string.application_name);
         ButterKnife.bind(this);
-
+        this.sessionManager = new SessionManager(MainActivity.this);
+        this.realm = RealmUserController.with(MainActivity.this).getRealm();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -73,20 +90,29 @@ public class MainActivity extends AppCompatActivity
             Toast.makeText(MainActivity.this, query, Toast.LENGTH_SHORT).show();
         }
 
-        createSession();
         initialiseFragment();
-
+        initialiseNavigationBar();
     }
 
-    private void createSession(){
-
-    }
 
     private void initialiseFragment(){
         MainFragment fragment = new MainFragment();
         android.support.v4.app.FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.fragment_container, fragment);
         fragmentTransaction.commit();
+    }
+
+    private void initialiseNavigationBar(){
+        navigationView.setNavigationItemSelectedListener(MainActivity.this);
+        View header = navigationView.getHeaderView(0);
+        TextView navBarUserName = (TextView) header.findViewById(R.id.nav_header_username);
+        if(RealmUserController.getInstance().getDBSize() > 0){
+            HashMap<String, String> user = sessionManager.getUserDetails();
+            NAME = user.get(sessionManager.KEY_EMAIL);  //why is this email and not name?
+            navBarUserName.setText(NAME);
+        }else{
+            navBarUserName.setText("");
+        }
     }
 
    @OnClick(R.id.floating_action_btn_notes)

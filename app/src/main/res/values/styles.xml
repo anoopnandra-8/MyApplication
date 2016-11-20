@@ -32,4 +32,13 @@
     <color name="winBackground">#FFFFFF</color>
     <color name="background">#3F51B5</color>
 
+    <style name="SignUpText" parent="TextAppearance.AppCompat">
+        <item name="android:textColorHint">#595959</item>
+        <item name="colorAccent">#595959</item>
+        <item name="colorControlNormal">#595959</item>
+        <item name="colorControlActivated">#595959</item>
+    </style>
+
+
+
 </resources>

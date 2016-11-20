@@ -1,8 +1,11 @@
 package com.example.anoop.noteapp_v1.session;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.widget.EditText;
+
+import com.example.anoop.noteapp_v1.activities.SignUpActivity;
 
 import java.util.HashMap;
 
@@ -18,8 +21,8 @@ public class SessionManager {
     private int PRIVATE_MODE=0;
     private static final String PREF_NAME="UserPref";
     private static final String IS_LOGIN="isLoggedIn";
-    private static final String KEY_NAME="name";
-    private static final String KEY_EMAIL="email";
+    public static final String KEY_NAME="name";
+    public static final String KEY_EMAIL="email";
 
 
     public SessionManager(Context context){
@@ -35,8 +38,15 @@ public class SessionManager {
         edit.commit();
     }
 
-    public void checkLogin(){
-        //if(!this.isLoggedIN(){do something herer}))}
+     public boolean checkLogin(){
+        if(!this.isLoggedIn()){
+            Intent intent = new Intent(_context, SignUpActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            _context.startActivity(intent);
+            return false;
+        }
+        return true;
     }
 
     public HashMap<String, String> getUserDetails(){
@@ -44,6 +54,11 @@ public class SessionManager {
         user.put(KEY_EMAIL, preferences.getString(KEY_NAME, null));
         user.put(KEY_NAME, preferences.getString(KEY_EMAIL, null));
         return user;
+    }
+
+    public void clearSession(){
+        edit.clear();
+        edit.commit();
     }
 
     public boolean isLoggedIn(){
