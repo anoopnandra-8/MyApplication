@@ -9,7 +9,9 @@ import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.text.format.DateFormat;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -20,13 +22,20 @@ import android.widget.Toast;
 
 import com.example.anoop.noteapp_v1.R;
 import com.example.anoop.noteapp_v1.activities.MainActivity;
+import com.example.anoop.noteapp_v1.adapters.RealmNoteAdapter;
+import com.example.anoop.noteapp_v1.models.Note;
+import com.example.anoop.noteapp_v1.realm.RealmNoteController;
 
 import java.lang.reflect.Method;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.Random;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.realm.Realm;
+import io.realm.RealmChangeListener;
 
 /**
  * Created by anoop on 17/10/2016.
@@ -37,6 +46,15 @@ public class NotesActivity extends AppCompatActivity{
     @BindView(R.id.note_date)
     TextView date_tv;
 
+    @BindView(R.id.notes_title_et)
+    EditText getTitle;
+
+    @BindView(R.id.view_note)
+    EditText getNote;
+
+    private Realm realm;
+    private RealmChangeListener realmChangeListener;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,12 +62,22 @@ public class NotesActivity extends AppCompatActivity{
         setTitle(R.string.application_name);
         ButterKnife.bind(this);
 
+        this.realm=RealmNoteController.with(this).getRealm();
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         Date date = new Date();
         date_tv.setText(dateFormat.format(date));
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        realmChangeListener = new RealmChangeListener() {
+            @Override
+            public void onChange(Object element) {
+                RealmNoteController.with(NotesActivity.this).refresh();
+            }
+        };
     }
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -64,6 +92,7 @@ public class NotesActivity extends AppCompatActivity{
 
         switch (id){
             case R.id.note_save:
+                saveNote();
                 Toast.makeText(this, "Save works", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.note_send:
@@ -107,6 +136,54 @@ public class NotesActivity extends AppCompatActivity{
         }
 
         return super.onPrepareOptionsPanel(view, menu);
+    }
+
+    private void saveNote(){
+        Note note = new Note();
+        if(getTitle.getText().toString().equals("") && getNote.getText().toString().equals("")){
+            Intent intent = new Intent(NotesActivity.this, MainActivity.class);
+            startActivity(intent);
+        }
+        if(getTitle.getText().toString().equals("") && getNote.getText().toString().length() > 0){
+            getTitle.setText(getNote.getText().toString());
+        }
+
+        Log.i("NOTEID", String.valueOf(getNoteID()));   //        note.setNoteID(getNoteID());
+        Log.i("TITLE", getTitle.getText().toString());  //        note.setTitle(getTitle.getText().toString());
+        Log.i("NOTE", getNote.getText().toString());    //        note.setNote(getNote.getText().toString());
+        Log.i("CURRENTDATE", getCurrentDate());         //        note.setDate(getCurrentDate());
+        Log.i("CURRENTIME", getCurrentTime());          //        note.setTime(getCurrentTime());
+
+
+    }
+
+    private long getNoteID(){
+        boolean check = false;
+        while(check==false){
+            check = true;
+            Random random = new Random();
+            long idRange = random.nextLong();
+
+            if(RealmNoteController.getInstance().checkNoteID(idRange) == true){
+                check=false;
+
+            }else {
+                return idRange;
+            }
+        }
+        return 0;
+    }
+
+    private String getCurrentDate(){
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+        Calendar calendar = Calendar.getInstance();
+        return dateFormat.format(calendar.getTime()).toString();
+    }
+
+    private String getCurrentTime(){
+        SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
+        Calendar calendar = Calendar.getInstance();
+        return dateFormat.format(calendar.getTime()).toString();
     }
 
     public static class LineEditText extends EditText{
