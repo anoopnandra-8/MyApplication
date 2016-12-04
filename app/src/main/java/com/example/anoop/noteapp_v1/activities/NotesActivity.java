@@ -1,6 +1,7 @@
 package com.example.anoop.noteapp_v1.activities;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -8,28 +9,33 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.text.format.DateFormat;
+import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.anoop.noteapp_v1.R;
-import com.example.anoop.noteapp_v1.activities.MainActivity;
-import com.example.anoop.noteapp_v1.adapters.RealmNoteAdapter;
 import com.example.anoop.noteapp_v1.models.Note;
 import com.example.anoop.noteapp_v1.realm.RealmNoteController;
+import com.example.anoop.noteapp_v1.session.SessionManager;
 
 import java.lang.reflect.Method;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Random;
 
 import butterknife.BindView;
@@ -52,8 +58,14 @@ public class NotesActivity extends AppCompatActivity{
     @BindView(R.id.view_note)
     EditText getNote;
 
+    
     private Realm realm;
     private RealmChangeListener realmChangeListener;
+    private SessionManager sessionManager;
+    private String EMAIL;
+    private LayoutInflater inflater;
+    private static String getPassword;
+    private static String getNoteTheme;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -62,10 +74,16 @@ public class NotesActivity extends AppCompatActivity{
         setTitle(R.string.application_name);
         ButterKnife.bind(this);
 
+        this.sessionManager = new SessionManager(this);
         this.realm=RealmNoteController.with(this).getRealm();
+        getPassword="";
+        getNoteTheme="";
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         Date date = new Date();
         date_tv.setText(dateFormat.format(date));
+
+        HashMap<String, String> user = sessionManager.getUserDetails();
+        EMAIL = user.get(sessionManager.KEY_NAME);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -75,9 +93,35 @@ public class NotesActivity extends AppCompatActivity{
                 RealmNoteController.with(NotesActivity.this).refresh();
             }
         };
+
+        //Maybe added for better UI
+
+       /* Thread thread = new Thread(){
+
+            @Override
+            public void run() {
+                super.run();
+                try{
+                    while(true){
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+
+                                if(*//*getTitle.getText().toString().equals("") &&*//* getNote.getText().toString().length() > 0){
+                                    getTitle.setText(getNote.getText().toString());
+                                }
+                            }
+                        });
+                        sleep(0);
+                    }
+                }catch (InterruptedException e){
+                    e.printStackTrace();
+                }
+
+            }
+        };
+        thread.start();*/
     }
-
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -99,7 +143,7 @@ public class NotesActivity extends AppCompatActivity{
                 Toast.makeText(this, "Settings work", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.note_lock:
-                Toast.makeText(this, "Lock works", Toast.LENGTH_SHORT).show();
+                lockDialogue();
                 break;
             case R.id.note_reminder:
                 Toast.makeText(this, "reminder works", Toast.LENGTH_SHORT).show();
@@ -108,7 +152,8 @@ public class NotesActivity extends AppCompatActivity{
                 Toast.makeText(this, "delete works", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.note_colour:
-                Toast.makeText(this, "colour works", Toast.LENGTH_SHORT).show();
+                setColour();
+                //Toast.makeText(this, "colour works", Toast.LENGTH_SHORT).show();
                 break;
             case android.R.id.home:
                 Intent intent = new Intent(this, MainActivity.class);
@@ -134,7 +179,6 @@ public class NotesActivity extends AppCompatActivity{
                 }
             }
         }
-
         return super.onPrepareOptionsPanel(view, menu);
     }
 
@@ -144,6 +188,7 @@ public class NotesActivity extends AppCompatActivity{
             Intent intent = new Intent(NotesActivity.this, MainActivity.class);
             startActivity(intent);
         }
+
         if(getTitle.getText().toString().equals("") && getNote.getText().toString().length() > 0){
             getTitle.setText(getNote.getText().toString());
         }
@@ -153,8 +198,13 @@ public class NotesActivity extends AppCompatActivity{
         Log.i("NOTE", getNote.getText().toString());    //        note.setNote(getNote.getText().toString());
         Log.i("CURRENTDATE", getCurrentDate());         //        note.setDate(getCurrentDate());
         Log.i("CURRENTIME", getCurrentTime());          //        note.setTime(getCurrentTime());
-
-
+        Log.i("EMAILID", EMAIL);                        //        note.setEmailID(EMAIL);
+        if(getPassword != null || !getPassword.equals("")){   //        note.setLockPassword(testPass); && note.setLock(true);
+            Log.i("LOCKPASSWORD", getPassword);
+        }
+        if(getNoteTheme != null || !getNoteTheme.equals("")){
+            Log.i("NOTECOLOUR", getNoteTheme);
+        }
     }
 
     private long getNoteID(){
@@ -185,6 +235,60 @@ public class NotesActivity extends AppCompatActivity{
         Calendar calendar = Calendar.getInstance();
         return dateFormat.format(calendar.getTime()).toString();
     }
+
+    private void lockDialogue(){
+        if(getTitle.getText().toString().equals("") && getNote.getText().toString().equals("")){
+            Toast.makeText(NotesActivity.this, "Please expand on your note before locking", Toast.LENGTH_SHORT).show();
+        }else{
+            inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
+            View content = inflater.inflate(R.layout.password_alert, null);
+            final EditText alertPassword = (EditText) content.findViewById(R.id.alert_password);
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setView(content)
+                    .setTitle("Enter your password")
+                    .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            if(alertPassword.getText().toString().length() < 4){
+                                Toast.makeText(NotesActivity.this, "Did not save - Password must be longer than 4 characters", Toast.LENGTH_SHORT).show();
+                            }else{
+                                getPassword = alertPassword.getText().toString();
+                            }
+                        }
+                    });
+            builder.show();
+        }
+    }
+
+    private void setColour(){
+        inflater = (LayoutInflater) getSystemService((LAYOUT_INFLATER_SERVICE));
+        View content = inflater.inflate(R.layout.colour_note, null);
+        final Button blueColour = (Button) content.findViewById(R.id.colour_blue);
+        final View redColour = (View) content.findViewById(R.id.colour_red);
+        final View yellowColour = (View) content.findViewById(R.id.colour_yellow);
+        final View greenColour = (View) content.findViewById(R.id.colour_green);
+        final View purpleColour = (View) content.findViewById(R.id.colour_purple);
+        final View greyColour = (View) content.findViewById(R.id.colour_grey);
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setView(content)
+                .setTitle("Please choose a note theme")
+                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                      //  builder.setCancelable(true);
+                    }
+                });
+
+        blueColour.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getNoteTheme = "#303F9F";
+            }
+        });
+
+        builder.show().getWindow().setLayout(700,550);
+    }
+
 
     public static class LineEditText extends EditText{
         public LineEditText(Context context, AttributeSet attrs) {
@@ -220,8 +324,4 @@ public class NotesActivity extends AppCompatActivity{
                 }
         }
     }
-
-
-
-
 }

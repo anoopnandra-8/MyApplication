@@ -6,7 +6,7 @@
 
     <RelativeLayout
         android:id="@+id/toplayout"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingBottom="5dp"
         android:paddingLeft="5dp"
@@ -24,7 +24,7 @@
             android:id="@+id/text1"/>-->
 
         <EditText
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/notes_title_et"
             android:textSize="18sp"
@@ -32,9 +32,13 @@
             android:textStyle="bold"
             android:background="@android:color/transparent"
             android:layout_marginLeft="5dp"
-            android:singleLine="true"
+            android:scrollHorizontally="true"
+            android:maxLines="1"
+            android:ellipsize="end"
             android:inputType="textCapWords"
             android:imeOptions="actionGo"/>
+
+        <!--android:singleLine="true"-->
 
         <View
             android:layout_width="match_parent"
